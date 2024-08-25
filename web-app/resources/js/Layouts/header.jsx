@@ -1,7 +1,7 @@
 'use client'
 
 import { useState } from 'react';
-import { Head,Link } from '@inertiajs/react';
+import { Link } from '@inertiajs/react';
 
 import {
     Dialog,
@@ -13,7 +13,7 @@ import {
     PopoverButton,
     PopoverGroup,
     PopoverPanel,
-} from '@headlessui/react'
+} from '@headlessui/react';
 
 import {
     Bars3Icon,
@@ -22,43 +22,42 @@ import {
     WrenchScrewdriverIcon,
     IdentificationIcon,
     GlobeAltIcon
-} from '@heroicons/react/24/outline'
+} from '@heroicons/react/24/outline';
 
 import {
     FlagIcon,
-} from '@heroicons/react/24/solid'
-import { ChevronDownIcon, PhoneIcon } from '@heroicons/react/20/solid'
+} from '@heroicons/react/24/solid';
+import { ChevronDownIcon, PhoneIcon } from '@heroicons/react/20/solid';
 
 const introductions = [
-    { name: 'About this site', description: 'このサイトの説明', href: '#', icon: GlobeAltIcon},
-    { name: 'About me', description: '管理者の簡単な説明', href: '#', icon: UserCircleIcon },
-    { name: 'My skill', description: '管理者のスキル', href: '#', icon: WrenchScrewdriverIcon },
-    { name: 'Profile', description: '管理者の詳細な説明', href: '#', icon: IdentificationIcon },
-]
+    { name: 'About this site', description: 'このサイトの説明', href: 'top', icon: GlobeAltIcon},
+    { name: 'About me', description: '管理者の簡単な説明', href: 'top', icon: UserCircleIcon },
+    { name: 'My skill', description: '管理者のスキル', href: 'top', icon: WrenchScrewdriverIcon },
+    { name: 'Profile', description: '管理者の詳細な説明', href: 'top', icon: IdentificationIcon },
+];
 const callsToAction = [
-    { name: 'Contact administrator', href: '#', icon: PhoneIcon },
-]
+    { name: 'Contact administrator', href: 'top', icon: PhoneIcon },
+];
 
 const items =[
-    { name: 'works', href:'#'},
-    { name: 'articles', href:'#'},
-    { name: 'etc...', href:'#'},
-]
+    { name: 'works', href:'top'},
+    { name: 'articles', href:'top'},
+    { name: 'etc...', href:'top'},
+];
 
 export default function Header({auth}) {
-    const [mobileMenuOpen, setMobileMenuOpen] = useState(false)
+    const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
 
     return (
         <>
-        {/* <Head title="Top"/> */}
         <header className="bg-white border-b-2">
             <nav aria-label="Global" className="mx-auto flex max-w-7xl items-center justify-between p-6 lg:px-8">
                 <div className="flex lg:flex-1">
-                    <a href="#" className="-m-1.5 p-1.5">
+                    <Link href="#" className="-m-1.5 p-1.5">
                         
                         <span className="sr-only">my portfolio</span>
                         <FlagIcon className="h-8 w-auto"/>
-                    </a>
+                    </Link>
                 </div>
                 <div className="flex lg:hidden">
                     <button
@@ -91,10 +90,10 @@ export default function Header({auth}) {
                                             <item.icon aria-hidden="true" className="h-6 w-6 text-gray-600 group-hover:text-indigo-600" />
                                         </div>
                                         <div className="flex-auto">
-                                            <a href={item.href} className="block font-semibold text-gray-900">
+                                            <Link href={route(item.href)} className="block font-semibold text-gray-900">
                                                 {item.name}
                                                 <span className="absolute inset-0" />
-                                            </a>
+                                            </Link>
                                             <p className="mt-1 text-gray-600">{item.description}</p>
                                         </div>
                                     </div>
@@ -102,14 +101,14 @@ export default function Header({auth}) {
                             </div>
                             <div className=" divide-x divide-gray-900/5 bg-gray-50">
                                 {callsToAction.map((item) => (
-                                    <a
+                                    <Link
                                         key={item.name}
-                                        href={item.href}
+                                        href={route(item.href)} 
                                         className="flex items-center justify-center gap-x-2.5 p-3 text-sm font-semibold leading-5 text-gray-900 hover:bg-gray-100"
                                     >
                                         <item.icon aria-hidden="true" className="h-5 w-5 flex-none text-gray-400" />
                                         {item.name}
-                                    </a>
+                                    </Link>
                                 ))}
                             </div>
                         </PopoverPanel>
@@ -117,9 +116,9 @@ export default function Header({auth}) {
                     
                     {items.map((item) => 
                     <div  key={item.name}>
-                    <a href={item.href} className="text-sm font-semibold leading-6 text-gray-900">
+                    <Link href= {item.href} className="text-sm font-semibold leading-6 text-gray-900">
                         {item.name}
-                    </a></div>)}
+                    </Link></div>)}
 
                 </PopoverGroup>
 
@@ -153,12 +152,12 @@ export default function Header({auth}) {
                 <div className="fixed inset-0 z-10" />
                 <DialogPanel className="fixed inset-y-0 right-0 z-10 w-full overflow-y-auto bg-white px-6 py-6 sm:max-w-sm sm:ring-1 sm:ring-gray-900/10">
                     <div className="flex items-center justify-between">
-                        <a href="#" className="-m-1.5 p-1.5">
+                        <Link href="#" className="-m-1.5 p-1.5">
                             <span className="sr-only">my portfolio</span>
                             <FlagIcon
                                 className="h-8 w-auto"
                             />
-                        </a>
+                        </Link>
                         <button
                             type="button"
                             onClick={() => setMobileMenuOpen(false)}
@@ -181,7 +180,7 @@ export default function Header({auth}) {
                                             <DisclosureButton
                                                 key={item.name}
                                                 as="a"
-                                                href={item.href}
+                                                href={route(item.href)} 
                                                 className="block rounded-lg py-2 pl-6 pr-3 text-sm font-semibold leading-7 text-gray-900 hover:bg-gray-50"
                                             >
                                                 {item.name}
@@ -191,30 +190,30 @@ export default function Header({auth}) {
                                 </Disclosure>
                                     {items.map((item) => 
                                     <div  key={item.name}>
-                                    <a href={item.href} className="-mx-3 block rounded-lg px-3 py-2 text-base font-semibold leading-7 text-gray-900 hover:bg-gray-50">
-                                    {item.name}</a></div>)}
+                                    <Link href={route(item.href)}  className="-mx-3 block rounded-lg px-3 py-2 text-base font-semibold leading-7 text-gray-900 hover:bg-gray-50">
+                                    {item.name}</Link></div>)}
                             </div>
                             <div className="py-6">
                                 {auth.user ? (
                                 <>
-                                <a
+                                <Link
                                 href={route('dashboard')}
                                 className="-mx-3 block rounded-lg px-3 py-2.5 text-base font-semibold leading-7 text-gray-900 hover:bg-gray-50">
                                     dashboard
-                                </a>
+                                </Link>
                                 </>
                                 ) : (
                                 <>
-                                <a
+                                <Link
                                 href={route('login')}
                                 className="-mx-3 block rounded-lg px-3 py-2.5 text-base font-semibold leading-7 text-gray-900 hover:bg-gray-50">
                                     login
-                                </a>
-                                <a
+                                </Link>
+                                <Link
                                 href={route('register')}
                                 className="-mx-3 block rounded-lg px-3 py-2.5 text-base font-semibold leading-7 text-gray-900 hover:bg-gray-50">
                                     Register
-                                </a>
+                                </Link>
                                 </>
                                 )}
                             </div>
@@ -224,5 +223,5 @@ export default function Header({auth}) {
             </Dialog>
         </header>
         </>
-    )
+    );
 }

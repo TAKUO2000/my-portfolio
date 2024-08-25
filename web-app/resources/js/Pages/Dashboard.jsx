@@ -1,13 +1,14 @@
-import Header from '@/Layouts/header'
-import { Head } from '@inertiajs/react';
+import Header from '@/Layouts/header';
+import AppHead from '@/Components/AppHead';
 
 export default function Dashboard({ auth }) {
     return (
         <>
-        <Head title="Dashboard" />
+        <AppHead title="Top"/>
         <Header
-            auth = {auth}
+            auth={auth}
         />
+        
         </>
     );
 }
