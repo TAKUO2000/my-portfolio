@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\TopController;
 use Illuminate\Foundation\Application;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
@@ -13,15 +14,21 @@ Route::get('/welcome', function () {
         'phpVersion' => PHP_VERSION,
     ]);
 });
-
-Route::get('/top', function(){
-    return Inertia::render('Top',[
+Route::get('/top', function () {
+    return Inertia::render('Top', [
         'canLogin' => Route::has('login'),
         'canRegister' => Route::has('register'),
-        'laravelVersion' => Application::VERSION,
-        'phpVersion' => PHP_VERSION,
+        'id' => "section1",
     ]);
-}) ->name('top');
+})->name('top');
+
+Route::get('/top/{id}', function ($id) {
+    return Inertia::render('Top', [
+        'canLogin' => Route::has('login'),
+        'canRegister' => Route::has('register'),
+        'id' => $id,
+    ]);
+})->name('headerTop');
 
 Route::get('/dashboard', function () {
     return Inertia::render('Dashboard');

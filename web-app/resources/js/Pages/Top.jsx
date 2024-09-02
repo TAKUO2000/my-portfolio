@@ -1,6 +1,8 @@
 import AppHead from "@/Components/AppHead";
 import Header from "@/Layouts/header";
 import { motion } from "framer-motion";
+import RenderScroll from "@/Components/RenderScroll";
+import { useEffect } from "react";
 import {
     UserCircleIcon,
     WrenchScrewdriverIcon,
@@ -10,19 +12,32 @@ import {
 import { PhoneIcon } from "@heroicons/react/20/solid";
 import { Textarea } from "@headlessui/react";
 
-export default function Top({ auth }) {
+export default function Top({ auth, id }) {
+    useEffect(() => {
+        RenderScroll(id);
+    });
+    const handleScroll = (sid) => {
+        const element = document.getElementById(sid);
+        if (element) {
+            element.scrollIntoView({ behavior: "smooth" }); // スムーズにスクロール
+        }
+    };
+
     return (
         <>
             <AppHead title="Top" />
-            <Header auth={auth} />
+            <Header handleScroll={handleScroll} auth={auth} topPage="true" />
             <div className="bg-white">
-                <div className="bg-layout-300 h-screen flex items-center flex-col justify-center">
+                <div
+                    id="section1"
+                    className="bg-layout-300 h-screen flex items-center flex-col justify-center"
+                >
                     <motion.div
                         whileInView={{ opacity: 1 }}
                         initial={{ opacity: 0 }}
                         transition={{ duration: 3 }}
                     >
-                        <GlobeAltIcon className="h-40 mb-2" />
+                        <GlobeAltIcon className="h-40 mb-2 " />
                     </motion.div>
                     <div className="text-center">
                         <motion.div
@@ -40,15 +55,18 @@ export default function Top({ auth }) {
                             <p className="pt-10 text-2xl">
                                 このサイトは、Takuoのポートフォリオサイトです。
                                 <br />
-                                このサイトでは、私がどんな人間なのか知ってもらいたいと思い作成しました。
+                                このサイトは、私がどんな人間なのか知ってもらいたいと思い作成しました。
                                 <br />
-                                また、今後勉強したweb関連の技術を記事にしていく予定です。
+                                今後勉強したweb関連の技術を記事にしていく予定です。
                                 <br />
                             </p>
                         </motion.div>
                     </div>
                 </div>
-                <div className="h-screen flex items-center flex-col justify-center">
+                <div
+                    id="section2"
+                    className="h-screen flex items-center flex-col justify-center"
+                >
                     <motion.div
                         whileInView={{ opacity: 1 }}
                         initial={{ opacity: 0 }}
@@ -80,7 +98,10 @@ export default function Top({ auth }) {
                         </motion.div>
                     </div>
                 </div>
-                <div className="bg-layout-300 h-screen flex items-center flex-col justify-center">
+                <div
+                    id="section3"
+                    className="bg-layout-300 h-screen flex items-center flex-col justify-center"
+                >
                     <motion.div
                         whileInView={{ opacity: 1 }}
                         initial={{ opacity: 0 }}
@@ -105,7 +126,10 @@ export default function Top({ auth }) {
                         </motion.div>
                     </div>
                 </div>
-                <div className="h-screen flex items-center flex-col justify-center">
+                <div
+                    id="section4"
+                    className="h-screen flex items-center flex-col justify-center"
+                >
                     <motion.div
                         whileInView={{ opacity: 1 }}
                         initial={{ opacity: 0 }}
@@ -117,7 +141,10 @@ export default function Top({ auth }) {
                         <h1 className="text-5xl">Profile</h1>
                     </div>
                 </div>
-                <div className="bg-layout h-screen flex items-center flex-col justify-center">
+                <div
+                    id="section5"
+                    className="bg-layout h-screen flex items-center flex-col justify-center"
+                >
                     <motion.div
                         whileInView={{ opacity: 1 }}
                         initial={{ opacity: 0 }}

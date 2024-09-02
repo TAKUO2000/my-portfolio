@@ -32,30 +32,36 @@ const introductions = [
     {
         name: "About this site",
         description: "このサイトの説明",
-        href: "top",
         icon: GlobeAltIcon,
+        id: "section1",
     },
     {
         name: "About me",
         description: "管理者の簡単な説明",
-        href: "top",
+
         icon: UserCircleIcon,
+        id: "section2",
     },
     {
         name: "My skill",
         description: "管理者のスキル",
-        href: "top",
+
         icon: WrenchScrewdriverIcon,
+        id: "section3",
     },
     {
         name: "Profile",
         description: "管理者の詳細な説明",
-        href: "top",
         icon: IdentificationIcon,
+        id: "section4",
     },
 ];
 const callsToAction = [
-    { name: "Contact administrator", href: "top", icon: PhoneIcon },
+    {
+        name: "Contact administrator",
+        icon: PhoneIcon,
+        id: "section5",
+    },
 ];
 
 const items = [
@@ -64,12 +70,12 @@ const items = [
     { name: "etc...", href: "top" },
 ];
 
-export default function Header({ auth }) {
+export default function Header({ auth, handleScroll, topPage = false }) {
     const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
 
     return (
         <>
-            <header className="bg-white border-b-2 bg-layout-200 bg-opacity-50 lg:sticky top-0">
+            <header className="bg-white border-b-2 bg-layout-200 bg-opacity-50 lg:sticky z-50 top-0">
                 <nav
                     aria-label="Global"
                     className="mx-auto flex max-w-7xl items-center justify-between p-6 lg:px-8"
@@ -107,53 +113,66 @@ export default function Header({ auth }) {
                             </PopoverButton>
                             <PopoverPanel
                                 transition
-                                className="absolute -left-8 top-full z-10 mt-3 w-screen max-w-md overflow-hidden rounded-3xl bg-white shadow-lg ring-1 ring-gray-900/5 transition data-[closed]:translate-y-1 data-[closed]:opacity-0 data-[enter]:duration-200 data-[leave]:duration-150 data-[enter]:ease-out data-[leave]:ease-in"
+                                className="absolute z-20 -left-8 top-full mt-3 w-screen max-w-md overflow-hidden rounded-3xl bg-white shadow-lg ring-1 ring-gray-900/5 transition data-[closed]:translate-y-1 data-[closed]:opacity-0 data-[enter]:duration-200 data-[leave]:duration-150 data-[enter]:ease-out data-[leave]:ease-in"
                             >
                                 <div className="p-4">
-                                    {introductions.map((item) => (
-                                        <div
-                                            key={item.name}
-                                            className="group relative flex items-center gap-x-6 rounded-lg p-4 text-sm leading-6 hover:bg-gray-50"
-                                        >
-                                            <div className="flex h-11 w-11 flex-none items-center justify-center rounded-lg bg-gray-50 group-hover:bg-white">
-                                                <item.icon
-                                                    aria-hidden="true"
-                                                    className="h-6 w-6 text-gray-600 group-hover:text-indigo-600"
-                                                />
+                                    {introductions.map((item) =>
+                                        topPage ? (
+                                            <div
+                                                onClick={() =>
+                                                    handleScroll(item.id)
+                                                }
+                                                key={item.name}
+                                                className="group relative flex items-center gap-x-6 rounded-lg p-4 text-sm leading-6 hover:bg-gray-50"
+                                            >
+                                                <div className="flex h-11 w-11 flex-none items-center justify-center rounded-lg bg-gray-50 group-hover:bg-white">
+                                                    <item.icon
+                                                        aria-hidden="true"
+                                                        className="h-6 w-6 text-gray-600 group-hover:text-indigo-600"
+                                                    />
+                                                </div>
+                                                <div className="flex-auto">
+                                                    <div className="block font-semibold text-gray-900">
+                                                        {item.name}
+                                                        <span className="absolute inset-0" />
+                                                    </div>
+                                                    <p className="mt-1 text-gray-600">
+                                                        {item.description}
+                                                    </p>
+                                                </div>
                                             </div>
-                                            <div className="flex-auto">
-                                                <Link
-                                                    href={route(item.href)}
-                                                    className="block font-semibold text-gray-900"
-                                                >
-                                                    {item.name}
-                                                    <span className="absolute inset-0" />
-                                                </Link>
-                                                <p className="mt-1 text-gray-600">
-                                                    {item.description}
-                                                </p>
+                                        ) : (
+                                            <div
+                                                key={item.name}
+                                                className="group relative flex items-center gap-x-6 rounded-lg p-4 text-sm leading-6 hover:bg-gray-50"
+                                            >
+                                                <div className="flex h-11 w-11 flex-none items-center justify-center rounded-lg bg-gray-50 group-hover:bg-white">
+                                                    <item.icon
+                                                        aria-hidden="true"
+                                                        className="h-6 w-6 text-gray-600 group-hover:text-indigo-600"
+                                                    />
+                                                </div>
+                                                <div className="flex-auto">
+                                                    <Link
+                                                        href={route(
+                                                            "headerTop",
+                                                            { id: item.id },
+                                                        )}
+                                                        className="block font-semibold text-gray-900"
+                                                    >
+                                                        {item.name}
+                                                        <span className="absolute inset-0" />
+                                                    </Link>
+                                                    <p className="mt-1 text-gray-600">
+                                                        {item.description}
+                                                    </p>
+                                                </div>
                                             </div>
-                                        </div>
-                                    ))}
-                                </div>
-                                <div className=" divide-x divide-gray-900/5 bg-gray-50">
-                                    {callsToAction.map((item) => (
-                                        <Link
-                                            key={item.name}
-                                            href={route(item.href)}
-                                            className="flex items-center justify-center gap-x-2.5 p-3 text-sm font-semibold leading-5 text-gray-900 hover:bg-gray-100"
-                                        >
-                                            <item.icon
-                                                aria-hidden="true"
-                                                className="h-5 w-5 flex-none text-gray-400"
-                                            />
-                                            {item.name}
-                                        </Link>
-                                    ))}
+                                        ),
+                                    )}
                                 </div>
                             </PopoverPanel>
                         </Popover>
-
                         {items.map((item) => (
                             <div key={item.name}>
                                 <Link
@@ -233,16 +252,36 @@ export default function Header({ auth }) {
                                             {[
                                                 ...introductions,
                                                 ...callsToAction,
-                                            ].map((item) => (
-                                                <DisclosureButton
-                                                    key={item.name}
-                                                    as="a"
-                                                    href={route(item.href)}
-                                                    className="block rounded-lg py-2 pl-6 pr-3 text-sm font-semibold leading-7 text-gray-900 hover:bg-gray-50"
-                                                >
-                                                    {item.name}
-                                                </DisclosureButton>
-                                            ))}
+                                            ].map((item) =>
+                                                topPage ? (
+                                                    <DisclosureButton
+                                                        key={item.name}
+                                                        as="div"
+                                                        onClick={() =>
+                                                            handleScroll(
+                                                                item.id,
+                                                            )
+                                                        }
+                                                        className="block rounded-lg py-2 pl-6 pr-3 text-sm font-semibold leading-7 text-gray-900 hover:bg-gray-50"
+                                                    >
+                                                        {item.name}
+                                                    </DisclosureButton>
+                                                ) : (
+                                                    <DisclosureButton
+                                                        key={item.name}
+                                                        as="a"
+                                                        href={route(
+                                                            "headerTop",
+                                                            {
+                                                                id: item.id,
+                                                            },
+                                                        )}
+                                                        className="block rounded-lg py-2 pl-6 pr-3 text-sm font-semibold leading-7 text-gray-900 hover:bg-gray-50"
+                                                    >
+                                                        {item.name}
+                                                    </DisclosureButton>
+                                                ),
+                                            )}
                                         </DisclosurePanel>
                                     </Disclosure>
                                     {items.map((item) => (
