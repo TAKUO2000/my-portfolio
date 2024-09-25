@@ -55,10 +55,9 @@ const introductions = [
         icon: IdentificationIcon,
         id: "section4",
     },
-];
-const callsToAction = [
     {
-        name: "Contact administrator",
+        name: "Contact",
+        description: "連絡先とアカウントURL",
         icon: PhoneIcon,
         id: "section5",
     },
@@ -84,8 +83,8 @@ export default function Header({ auth, handleScroll, topPage = false }) {
                         <Link href={route("top")} className="-m-1.5 p-1.5">
                             <span className="sr-only">my portfolio</span>
                             <motion.div
-                                transition={{ duration: 3 }}
-                                animate={{ opacity: 1, rotate: 350 }}
+                                transition={{ duration: 1 }}
+                                animate={{ opacity: 1, rotate: 370 }}
                                 initial={{ opacity: 0 }}
                             >
                                 <FlagIcon className="h-8 w-auto" />
@@ -228,7 +227,7 @@ export default function Header({ auth, handleScroll, topPage = false }) {
                             <button
                                 type="button"
                                 onClick={() => setMobileMenuOpen(false)}
-                                className="-m-2.5 rounded-md p-2.5 text-gray-700"
+                                className=" -m-2.5 rounded-md p-2.5 text-gray-700"
                             >
                                 <span className="sr-only">Close menu</span>
                                 <XMarkIcon
@@ -249,19 +248,19 @@ export default function Header({ auth, handleScroll, topPage = false }) {
                                             />
                                         </DisclosureButton>
                                         <DisclosurePanel className="mt-2 space-y-2">
-                                            {[
-                                                ...introductions,
-                                                ...callsToAction,
-                                            ].map((item) =>
+                                            {introductions.map((item) =>
                                                 topPage ? (
                                                     <DisclosureButton
                                                         key={item.name}
                                                         as="div"
-                                                        onClick={() =>
+                                                        onClick={() => {
                                                             handleScroll(
                                                                 item.id,
-                                                            )
-                                                        }
+                                                            );
+                                                            setMobileMenuOpen(
+                                                                false,
+                                                            );
+                                                        }}
                                                         className="block rounded-lg py-2 pl-6 pr-3 text-sm font-semibold leading-7 text-gray-900 hover:bg-gray-50"
                                                     >
                                                         {item.name}
